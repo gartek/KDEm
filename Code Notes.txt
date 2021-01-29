@@ -1,1 +1,30 @@
-Anal
+Starting from test.py
+|_  Invoques test_syn_uni  or test_syn_mix
+    Define 3 variables (sizes??) m=200, n=100, k=50
+    K is a file number
+
+test_syn_uni
+funcion run_test_uni:
+    p_unre_set and ldba_set, a for is applied to read the files, both are the
+    names of the database
+    ldba = average number of claims for each entity
+    p = portion of unreliable sources
+    invoques the function of run_syn_uni wiht the parameters:
+        m: same 200 of the main program
+        n: same 100 of the main program
+        load: database load path
+        save: empty
+        ldba: for iteration index
+        p_ure: for iteration index
+
+function run_sys_uni:
+    executes the KDE algorithm and also with the baseline methods
+    and call the function reload_data
+
+Dataset meaning
+object = entities = n
+source_id 200 = m
+value = reliability score
+1.0:1.0 = ground-truthed opinion or trustworthy opinion
+second value us confidences of a representative value, measure the significance
+level of the representative value of an opinion

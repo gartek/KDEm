@@ -23,16 +23,15 @@ def check_repeat(recd):
     return(recd_new)
 
 def ReadData(ground_truth):
-    fileHandle = open(".//data_pop//popTuples.txt")
+    fileHandle = open(".//data_pop//popTuples1.txt")
     f = fileHandle.readline()
     data_mark = []
     data_unmark = []
     truth_new = []
-    
+
     objects_mark = []
     objects_unmark = []
     data_obj = {}
-    
     while(f!=''):
         dataline = f.strip()
         item = dataline.split("\t")
@@ -40,25 +39,25 @@ def ReadData(ground_truth):
         year = item[6][5:9]
         ob = ob+":"+year
         sr = item[4].lower()
-        tmp = np.int(item[7])    
+        tmp = np.int(item[7])
         if(tmp<1e8):
             if(data_obj.has_key(ob)):
                 recd = data_obj[ob][:]
                 recd.append([sr, tmp])
                 data_obj[ob] = recd[:]
-            else:    
+            else:
                 recd = [[sr, tmp]]
                 data_obj[ob] = recd[:]
         f=fileHandle.readline()
     fileHandle.close()
-    
     sources = {}
     sr_out = []
+
     for (k,v) in data_obj.items():
         v = check_repeat(v)[:]
         n_v = len(v)
         srs = np.zeros(n_v)
-        vls = np.zeros(n_v)        
+        vls = np.zeros(n_v)
         for j in range(n_v):
             vls[j] = v[j][1]
         if(np.var(vls)>0):
@@ -75,12 +74,12 @@ def ReadData(ground_truth):
                 objects_mark.append(k)
             else:
                 data_unmark.append(np.array([srs,vls]).transpose())
-                objects_unmark.append(k) 
+                objects_unmark.append(k)
     objects = np.append(objects_mark[:], objects_unmark[:])
     n_mark = len(data_mark)
     n_unmark = len(data_unmark)
     for i in range(n_unmark):
-        data_mark.append(data_unmark[i])        
+        data_mark.append(data_unmark[i])
     return([data_mark, objects, sr_out, np.array(truth_new), n_mark])
 
 def ReadTruth():
@@ -98,7 +97,7 @@ def ReadTruth():
     fileHandle.close()
     return(truth)
 
-   
+
 def Read():
     ground_truth = ReadTruth()
     data_raw, objects, sources, truth, n_mark = ReadData(ground_truth)
